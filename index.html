@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Shagna Invites — premium digital invitations and interactive celebration websites.">
+<meta name="theme-color" content="#382638">
+<title>Shagna Invites — Beautiful Digital Invitations</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  /* Romantic luxury palette — peacock teal, antique gold, blush and ivory */
+  --teal:#382638;
+  --teal-deep:#241624;
+  --teal-mid:#62455D;
+  --teal-soft:#F1E5E2;
+  --gold:#B58A4A;
+  --gold-rich:#966B35;
+  --gold-light:#E0BE78;
+  --champagne:#E8D5B2;
+  --blush:#D9B8B2;
+  --blush-soft:#F3E2DE;
+  --ivory:#FBF7F0;
+  --paper:#FFFDFC;
+  --ink:#3A302D;
+  --muted:#756B6A;
+  --line:rgba(23,59,67,.13);
+  --dark-line:rgba(233,213,174,.22);
+  --shadow:0 28px 80px rgba(30,48,50,.14);
+  --radius:22px;
+  --max:1180px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Manrope",sans-serif;background:var(--ivory);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.055;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.1'/%3E%3C/svg%3E");
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button{font:inherit}
+.container{width:min(var(--max),calc(100% - 42px));margin:auto}
+h1,h2,h3,h4{font-family:"Bodoni Moda",serif;letter-spacing:-.025em}
+h1{font-size:clamp(3.15rem,7vw,6.65rem);line-height:.87;font-weight:500}
+h2{font-size:clamp(2.3rem,5vw,4.15rem);line-height:.95;font-weight:500}
+h3{font-size:1.55rem}
+p{line-height:1.72}
+.eyebrow{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--gold-rich)}
+.dark .eyebrow,.hero .eyebrow{color:var(--gold-light)}
+.gold{color:var(--gold-rich)}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+
+/* HEADER */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  background:rgba(23,59,67,.86);backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(233,213,174,.34);
+  box-shadow:0 2px 0 rgba(233,213,174,.06);
+  transition:.35s;
+}
+header.scrolled{
+  background:rgba(14,41,47,.96);
+  border-bottom-color:rgba(216,182,106,.58);
+  box-shadow:0 8px 35px rgba(14,41,47,.18);
+}
+.nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:11px;min-width:max-content}
+.brand img{width:49px;height:49px;border-radius:13px;object-fit:cover}
+.brand-name{font-family:"Bodoni Moda";font-size:1.28rem;font-weight:500;color:#fff;line-height:1}
+.brand-tag{display:block;color:rgba(255,255,255,.62);font-size:.55rem;letter-spacing:.1em;margin-top:5px}
+.navlinks{display:flex;align-items:center;gap:25px;color:rgba(255,255,255,.82);font-size:.75rem}
+.navlinks a{transition:.25s}
+.navlinks a:hover{color:var(--gold-light)}
+
+.social-nav{display:flex;align-items:center;gap:7px}
+.social-nav a{width:31px;height:31px;border:1px solid rgba(233,213,174,.42);border-radius:50%;display:grid;place-items:center;color:#E8D5B2;font-size:.55rem;font-weight:700;letter-spacing:.03em;transition:.25s}
+.social-nav a:hover{background:#B58A4A;color:#241624;border-color:#B58A4A}
+
+.navcta{padding:11px 18px;border:1px solid rgba(233,213,174,.55);border-radius:999px;color:#F5DFB2;font-size:.72rem;white-space:nowrap;transition:.25s}
+.navcta:hover{background:var(--gold);color:var(--teal-deep);border-color:var(--gold)}
+.menu{display:none;color:white;font-size:1.35rem;cursor:pointer}
+
+/* MOVING HEADER STRIP */
+.ticker{position:fixed;top:78px;left:0;right:0;z-index:55;height:32px;overflow:hidden;white-space:nowrap;background:var(--champagne);color:var(--teal-deep);border-bottom:1px solid rgba(23,59,67,.18)}
+.ticker-track{height:100%;display:inline-flex;align-items:center;gap:30px;padding-left:20px;font-size:.59rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;animation:ticker 29s linear infinite}
+@keyframes ticker{to{transform:translateX(-50%)}}
+
+/* HERO */
+.hero{
+  min-height:100vh;padding:180px 0 95px;color:white;position:relative;overflow:hidden;
+  background:
+    radial-gradient(circle at 76% 26%,rgba(103,164,164,.34),transparent 25%),
+    radial-gradient(circle at 17% 88%,rgba(216,182,106,.15),transparent 27%),
+    radial-gradient(circle at 60% 100%,rgba(232,201,194,.11),transparent 22%),
+    linear-gradient(135deg,#102E35 0%,#382638 47%,#241624 100%);
+}
+.hero-inner{position:relative;z-index:5;max-width:830px}
+.hero .eyebrow{display:flex;align-items:center;gap:11px;margin-bottom:25px}
+.hero .eyebrow::before{content:"";width:29px;height:1px;background:var(--gold-light)}
+.hero h1 em{font-style:italic;font-weight:400;color:#F0D99E}
+.hero-copy{max-width:630px;margin-top:28px;color:rgba(255,255,255,.76);font-size:1rem}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 22px;border-radius:999px;font-size:.77rem;font-weight:600;transition:.3s var(--ease);cursor:pointer}
+.btn-gold{background:var(--gold);color:#132E34}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-3px);box-shadow:0 14px 30px rgba(216,182,106,.24)}
+.btn-ghost{border:1px solid rgba(255,255,255,.3);color:white}
+.btn-ghost:hover{border-color:var(--gold-light);color:var(--gold-light);transform:translateY(-3px)}
+.hero-proof{display:flex;gap:26px;flex-wrap:wrap;margin-top:48px;padding-top:21px;border-top:1px solid rgba(255,255,255,.14);max-width:760px}
+.proof-item{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.68);font-size:.68rem}
+.proof-dot{width:6px;height:6px;border-radius:50%;background:var(--gold-light)}
+
+/* ENVELOPE / FLORAL HERO ART */
+.hero-art{position:absolute;right:4%;top:19%;width:420px;height:500px;z-index:3;pointer-events:none}
+.envelope{position:absolute;right:25px;top:105px;width:330px;height:230px;background:linear-gradient(145deg,#F7E9D1,#E8D2AD);border-radius:8px;box-shadow:0 28px 60px rgba(0,0,0,.25);transform:rotate(-6deg);animation:envelopeFloat 7s ease-in-out infinite}
+.envelope:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 49.5%,rgba(141,103,48,.2) 50%,transparent 50.5%),linear-gradient(45deg,transparent 49.5%,rgba(141,103,48,.16) 50%,transparent 50.5%);border-radius:8px}
+.envelope-flap{position:absolute;left:0;right:0;top:0;height:120px;background:#EFDDBD;clip-path:polygon(0 0,100% 0,50% 100%);filter:drop-shadow(0 2px 2px rgba(0,0,0,.07))}
+.seal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:55px;height:55px;border-radius:50%;background:radial-gradient(circle,#D4AF68,#A87529);border:2px solid #F0D99F;display:grid;place-items:center;color:#fff2CC;font-family:"Bodoni Moda";font-size:1.2rem;box-shadow:0 5px 16px rgba(80,49,18,.2)}
+.ribbon{position:absolute;left:50%;top:0;bottom:0;width:34px;transform:translateX(-50%);background:rgba(177,130,60,.13)}
+.floral{position:absolute;animation:sway 6s ease-in-out infinite}
+.flower{width:48px;height:48px;position:relative}
+.flower span{position:absolute;width:23px;height:32px;border-radius:80% 20% 80% 20%;background:linear-gradient(145deg,#F1D9D2,#D89E9A);left:12px;top:8px;transform-origin:bottom center}
+.flower span:nth-child(1){transform:rotate(0deg) translateY(-5px)}
+.flower span:nth-child(2){transform:rotate(72deg) translateY(-5px)}
+.flower span:nth-child(3){transform:rotate(144deg) translateY(-5px)}
+.flower span:nth-child(4){transform:rotate(216deg) translateY(-5px)}
+.flower span:nth-child(5){transform:rotate(288deg) translateY(-5px)}
+.flower i{position:absolute;width:10px;height:10px;border-radius:50%;background:#C08A3D;left:19px;top:19px}
+.flower-one{right:6px;top:22px;transform:scale(1.05)}
+.flower-two{left:20px;top:48px;transform:scale(.65);animation-delay:-2s}
+.flower-three{right:55px;bottom:55px;transform:scale(.45);animation-delay:-4s}
+.leaf{position:absolute;width:62px;height:28px;border-radius:100% 0 100% 0;background:rgba(122,161,145,.8);transform:rotate(-25deg)}
+.leaf.one{right:0;top:86px}
+.leaf.two{left:0;bottom:90px;transform:rotate(160deg) scale(.75)}
+@keyframes envelopeFloat{0%,100%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(-4deg) translateY(-13px)}}
+@keyframes sway{0%,100%{transform:rotate(0deg) translateY(0)}50%{transform:rotate(4deg) translateY(-8px)}}
+
+/* FALLING PETALS */
+.petal-field{position:absolute;inset:0;overflow:hidden;z-index:2;pointer-events:none}
+.petal{position:absolute;top:-40px;width:9px;height:15px;background:linear-gradient(145deg,#F2D38C,#B98535);border-radius:80% 15% 80% 15%;opacity:.72;animation:fall linear infinite}
+.petal:nth-child(1){left:8%;animation-duration:10s;animation-delay:-2s;transform:rotate(20deg)}
+.petal:nth-child(2){left:21%;animation-duration:13s;animation-delay:-8s;transform:scale(.7) rotate(70deg)}
+.petal:nth-child(3){left:38%;animation-duration:11s;animation-delay:-5s;transform:scale(.6) rotate(35deg)}
+.petal:nth-child(4){left:57%;animation-duration:14s;animation-delay:-10s;transform:scale(.8) rotate(80deg)}
+.petal:nth-child(5){left:73%;animation-duration:10s;animation-delay:-1s;transform:scale(.55) rotate(15deg)}
+.petal:nth-child(6){left:88%;animation-duration:12s;animation-delay:-6s;transform:scale(.75) rotate(50deg)}
+@keyframes fall{
+  0%{top:-30px;opacity:0;transform:translateX(0) rotate(0)}
+  12%{opacity:.7}
+  55%{transform:translateX(55px) rotate(170deg)}
+  100%{top:105%;opacity:0;transform:translateX(-45px) rotate(340deg)}
+}
+
+/* SECTIONS */
+.section{padding:110px 0}
+.section-head{max-width:680px;margin:0 auto 52px;text-align:center}
+.section-head p{margin-top:17px;color:var(--muted);font-size:.88rem}
+.light{background:var(--paper)}
+.soft{background:linear-gradient(180deg,#F8EFEA,#FBF8F1)}
+.dark{background:var(--teal-deep);color:white}
+.dark .section-head p{color:rgba(255,255,255,.62)}
+
+/* WHY DIGITAL — BOXED */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.why-card{background:linear-gradient(145deg,#fff,#F8F1E8);border:1px solid rgba(184,137,62,.2);border-radius:20px;padding:31px 27px;box-shadow:0 10px 30px rgba(70,58,43,.05);position:relative;overflow:hidden;transition:.35s var(--ease)}
+.why-card::after{content:"";position:absolute;width:90px;height:90px;border:1px solid rgba(184,137,62,.14);border-radius:50%;right:-40px;top:-40px}
+.why-card:hover{transform:translateY(-6px);box-shadow:0 20px 45px rgba(70,58,43,.1);border-color:rgba(184,137,62,.42)}
+.why-number{font-family:"Bodoni Moda";color:var(--gold-rich);font-size:1rem;margin-bottom:18px}
+.why-card h3{font-size:1.48rem;color:var(--teal)}
+.why-card p{font-size:.76rem;color:var(--muted);margin-top:7px}
+
+/* COLLECTION */
+.collection{background:var(--teal-deep)}
+.tabs{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-bottom:45px}
+.tab{padding:10px 18px;border-radius:999px;background:transparent;color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.17);cursor:pointer;font-size:.7rem;transition:.25s}
+.tab:hover{border-color:var(--gold-light);color:var(--gold-light)}
+.tab.active{background:var(--gold);color:var(--teal-deep);border-color:var(--gold);font-weight:600}
+.template-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.template{background:#4B3448;border:1px solid rgba(233,213,174,.16);border-radius:var(--radius);overflow:hidden;transition:.45s var(--ease)}
+.template:hover{transform:translateY(-8px);border-color:rgba(233,213,174,.46);box-shadow:0 30px 65px rgba(0,0,0,.25)}
+.template-art{height:365px;position:relative;display:grid;place-items:center;overflow:hidden}
+.template-art::before{content:"";position:absolute;inset:18px;border:1px solid rgba(255,255,255,.34);border-radius:18px}
+.art-teal{background:radial-gradient(circle at 25% 18%,#477D80,#204F57 52%,#103139)}
+.art-blush{background:linear-gradient(145deg,#F1DDD5,#C39A72)}
+.art-gold{background:radial-gradient(circle at 70% 20%,#517B80,#14383F 58%,#0C252B)}
+.art-copy{position:relative;text-align:center;padding:28px;color:white}
+.art-copy.darkcopy{color:#293A3B}
+.art-copy small{font-size:.57rem;letter-spacing:.22em;text-transform:uppercase}
+.art-copy h3{font-size:2.75rem;margin:11px 0 5px}
+.art-copy span{font-size:.64rem;letter-spacing:.12em;opacity:.82}
+.template-body{padding:22px 22px 24px}
+.template-body h3{color:white;font-size:1.33rem}
+.template-body p{font-size:.75rem;color:rgba(255,255,255,.57);margin-top:6px}
+.template-meta{display:flex;justify-content:space-between;align-items:center;margin-top:17px}
+.price{font-family:"Bodoni Moda";font-size:1.3rem;color:#F0D99F}
+.price small{font-family:"Manrope";font-size:.6rem;color:rgba(255,255,255,.5)}
+.template-actions{display:flex;gap:8px;margin-top:16px}
+.mini{flex:1;text-align:center;padding:9px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.19);font-size:.65rem;color:white}
+.mini.primary{background:var(--gold);color:var(--teal-deep);border-color:var(--gold);font-weight:600}
+
+/* FEATURES */
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.feature{background:#4B3448;border:1px solid rgba(233,213,174,.16);border-radius:20px;padding:27px;min-height:190px;transition:.35s var(--ease)}
+.feature:hover{transform:translateY(-5px);border-color:rgba(233,213,174,.45);box-shadow:0 20px 45px rgba(23,59,67,.15)}
+.feature.wide{grid-column:span 2}
+.feature-icon{width:45px;height:45px;border-radius:13px;background:rgba(216,182,106,.12);border:1px solid rgba(216,182,106,.18);display:grid;place-items:center;color:#F0D99F;font-size:1rem;margin-bottom:18px}
+.feature h3{font-size:1.32rem;color:#F0D99F}
+.feature p{font-size:.74rem;color:rgba(255,255,255,.57);margin-top:6px}
+.feature-note{margin-top:20px;padding:15px;border:1px dashed rgba(184,137,62,.3);border-radius:14px;text-align:center;color:var(--muted);font-size:.7rem}
+.feature-note strong{color:var(--gold-rich)}
+
+/* HOW */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:950px;margin:auto;position:relative}
+.steps::before{content:"";position:absolute;top:35px;left:17%;right:17%;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent)}
+.step{text-align:center;padding:0 22px;position:relative}
+.step-number{width:70px;height:70px;border-radius:50%;display:grid;place-items:center;margin:auto;background:var(--teal-deep);border:1px solid var(--gold-light);color:#F0D99F;font-family:"Bodoni Moda";font-size:1.25rem;position:relative;z-index:2}
+.step h3{font-size:1.68rem;margin-top:22px}
+.step p{color:var(--muted);font-size:.77rem;margin-top:7px}
+.step-tag{display:inline-block;margin-top:15px;color:var(--gold-rich);font-size:.59rem;letter-spacing:.13em;text-transform:uppercase}
+
+/* EXPERIENCE */
+.experience-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.phone-stage{min-height:570px;border-radius:30px;background:radial-gradient(circle at 50% 22%,#9A737D,#62455D 47%,#382638 75%);display:grid;place-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.phone-stage::before{content:"";position:absolute;width:500px;height:500px;border:1px solid rgba(233,213,174,.24);border-radius:50%;box-shadow:0 0 0 55px rgba(233,213,174,.025),0 0 0 110px rgba(233,213,174,.02)}
+.phone{width:245px;height:485px;background:#FBF7F0;border:8px solid #24393C;border-radius:35px;position:relative;z-index:2;box-shadow:0 30px 70px rgba(0,0,0,.32);overflow:hidden;transform:rotate(-2deg);transition:.6s var(--ease)}
+.phone:hover{transform:rotate(0) translateY(-7px)}
+.phone-top{height:155px;background:linear-gradient(145deg,#62455D,#382638);color:white;padding:28px 19px;display:flex;flex-direction:column;justify-content:end}
+.phone-top small{font-size:.4rem;letter-spacing:.18em;color:#F0D99F}
+.phone-top strong{font-family:"Bodoni Moda";font-size:1.85rem;font-weight:500;margin-top:6px}
+.phone-body{padding:19px;color:var(--ink)}
+.phone-line{height:8px;border-radius:10px;background:#E5DCD8;margin-bottom:9px}
+.phone-line.short{width:55%}
+.phone-box{height:80px;background:#EEE5E0;border-radius:14px;margin-top:17px}
+.phone-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.phone-btn{height:28px;border-radius:20px;background:#C79A50}
+.experience-copy h2{margin-top:13px}
+.exp-list{display:grid;gap:19px;margin-top:31px}
+.exp-item{display:flex;gap:14px}
+.check{width:32px;height:32px;flex:none;border-radius:50%;background:#E8D5B2;color:var(--teal-deep);display:grid;place-items:center;font-size:.72rem}
+.exp-item h4{font-family:"Manrope";font-size:.8rem}
+.exp-item p{font-size:.72rem;color:var(--muted);margin-top:2px}
+
+/* CONNECT */
+.integrations{background:linear-gradient(180deg,#F6F0EB,#FBF8F1)}
+.integration-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.integration{background:white;border:1px solid var(--line);border-radius:20px;padding:27px}
+.integration h3{font-size:1.42rem;color:var(--teal)}
+.integration p{font-size:.72rem;color:var(--muted);margin:7px 0 17px}
+.embed-box{height:120px;border-radius:14px;background:#F2F4F1;border:1px dashed rgba(23,59,67,.2);display:grid;place-items:center;text-align:center;padding:15px;color:#73807F;font-size:.64rem}
+.integration .btn{margin-top:15px}
+.integration .email{border:1px solid var(--line);color:var(--teal)}
+
+/* CUSTOM */
+.custom{background:var(--paper)}
+.custom-card{border-radius:30px;padding:62px 35px;text-align:center;background:linear-gradient(135deg,#382638,#285C63);color:white;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.custom-card::before{content:"";position:absolute;width:410px;height:410px;border:1px solid rgba(233,213,174,.15);border-radius:50%;right:-170px;top:-190px}
+.custom-card::after{content:"✦";position:absolute;left:9%;bottom:15%;color:rgba(240,217,159,.35);font-size:1.3rem}
+.custom-card>*{position:relative}
+.custom-card h2{max-width:750px;margin:12px auto 0}
+.custom-card p{max-width:590px;margin:18px auto 0;color:rgba(255,255,255,.67);font-size:.8rem}
+
+/* FAQ */
+.faq{background:var(--ivory)}
+.faq-list{max-width:820px;margin:auto}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-q{width:100%;border:0;background:none;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:21px 3px;color:var(--teal);cursor:pointer;font-family:"Bodoni Moda";font-size:1.28rem}
+.plus{color:var(--gold-rich);font-family:"Manrope";font-size:1.2rem;transition:.25s}
+.faq-item.open .plus{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s var(--ease);color:var(--muted);font-size:.75rem}
+.faq-item.open .faq-a{max-height:180px;padding:0 3px 21px}
+
+/* FOOTER */
+
+.footer-social{display:flex;gap:13px;align-items:center;flex-wrap:wrap;font-size:.68rem}
+.footer-social span{color:#E8D5B2;font-family:"Bodoni Moda"}
+.footer-social a{color:rgba(255,255,255,.62)}
+.footer-social a:hover{color:#E0BE78}
+
+footer{background:#0D292F;color:rgba(255,255,255,.55);padding:55px 0 28px;border-top:1px solid rgba(216,182,106,.18)}
+.footer-grid{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.footer-brand img{width:60px;border-radius:14px;margin-bottom:12px}
+.footer-brand p{font-size:.67rem;max-width:290px}
+.footer-links{display:flex;gap:24px;font-size:.69rem;align-items:flex-start;flex-wrap:wrap}
+.footer-links a:hover{color:var(--gold-light)}
+.copyright{margin-top:34px;padding-top:20px;border-top:1px solid rgba(233,213,174,.11);font-size:.59rem}
+
+/* WHATSAPP */
+.wa{position:fixed;right:20px;bottom:20px;z-index:80;width:58px;height:58px;border-radius:50%;background:#25D366;color:white;display:grid;place-items:center;box-shadow:0 12px 32px rgba(0,0,0,.25);font-size:1.3rem;transition:.3s}
+.wa:hover{transform:scale(1.08)}
+
+@media(max-width:980px){
+  .navlinks{gap:15px}
+  .navcta,.social-nav{display:none}
+  .hero-art{right:-80px;opacity:.72}
+  .template-grid,.feature-grid{grid-template-columns:1fr 1fr}
+  .feature.wide{grid-column:span 2}
+  .experience-grid{grid-template-columns:1fr;gap:45px}
+  .integration-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:720px){
+  .container{width:min(var(--max),calc(100% - 28px))}
+  .navlinks{display:none}
+  .menu{display:block}
+  .hero{padding-top:165px}
+  .hero-art{right:-145px;top:26%;transform:scale(.75);opacity:.43}
+  .why-grid,.intro-grid,.template-grid,.feature-grid,.steps,.integration-grid{grid-template-columns:1fr}
+  .feature.wide{grid-column:span 1}
+  .steps::before{display:none}
+  .step{padding:15px 8px}
+  .phone-stage{min-height:500px}
+  .section{padding:82px 0}
+  .hero-proof{gap:13px}
+}
+</style>
+</head>
+
+<!--
+SHAGNA INVITES — PRODUCTION PLACEHOLDERS
+1. Replace the WhatsApp number 910000000000 with your real WhatsApp number.
+2. Replace https://www.facebook.com/ with your actual Shagna Invites Facebook Page URL.
+3. Replace the Google Form / Google Maps / YouTube / Razorpay placeholders with your real links or embed code.
+4. Replace demo '#' links with each invitation's Live Demo / Watch Story URL.
+-->
+<body>
+
+<header id="header">
+  <div class="container nav">
+    <a class="brand" href="#">
+      <img src="data:image/jpeg;base64,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" alt="Shagna Invites logo">
+      <div>
+        <div class="brand-name">Shagna Invites</div>
+        <span class="brand-tag">DIGITAL INVITES FOR EVERY OCCASION</span>
+      </div>
+    </a>
+
+    <nav class="navlinks" id="navlinks">
+      <a href="#templates">Invitations</a>
+      <a href="#features">Features</a>
+      <a href="#experience">Live Experience</a>
+      <a href="#how">How It Works</a>
+      <a href="#faq">FAQs</a>
+    </nav>
+
+
+    <div class="social-nav" aria-label="Social media">
+      <a href="https://www.instagram.com/shagnainvites/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+      <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
+    </div>
+
+    <a class="navcta" href="https://wa.me/910000000000?text=Hi%20Shagna%20Invites%2C%20I%20want%20to%20create%20an%20invite." target="_blank">Start on WhatsApp</a>
+    <div class="menu" id="menu">☰</div>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span>Premium Digital Invitations</span><span>✦</span><span>Animated Invitations</span><span>✦</span><span>Interactive Celebration Websites</span><span>✦</span><span>3–5 Working Days</span><span>✦</span><span>Made With Your Story</span><span>✦</span>
+    <span>Premium Digital Invitations</span><span>✦</span><span>Animated Invitations</span><span>✦</span><span>Interactive Celebration Websites</span><span>✦</span><span>3–5 Working Days</span><span>✦</span><span>Made With Your Story</span><span>✦</span>
+  </div>
+</div>
+
+<main>
+
+<section class="hero">
+  <div class="petal-field" aria-hidden="true">
+    <span class="petal"></span><span class="petal"></span><span class="petal"></span>
+    <span class="petal"></span><span class="petal"></span><span class="petal"></span>
+  </div>
+
+  <div class="hero-art" aria-hidden="true">
+    <div class="floral flower-one floral"><div class="flower"><span></span><span></span><span></span><span></span><span></span><i></i></div></div>
+    <div class="floral flower-two"><div class="flower"><span></span><span></span><span></span><span></span><span></span><i></i></div></div>
+    <div class="floral flower-three"><div class="flower"><span></span><span></span><span></span><span></span><span></span><i></i></div></div>
+    <div class="leaf one"></div><div class="leaf two"></div>
+
+    <div class="envelope">
+      <div class="ribbon"></div>
+      <div class="envelope-flap"></div>
+      <div class="seal">S</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="hero-inner reveal visible">
+      <div class="eyebrow">Digital Invitations • Beautifully Reimagined</div>
+      <h1>Some invitations are opened.<br><em>Yours will be remembered.</em></h1>
+      <p class="hero-copy">Elegant animated invitations and interactive celebration websites, designed around your story — and made simple enough to order over WhatsApp.</p>
+      <div class="actions">
+        <a class="btn btn-gold" href="#templates">Explore Invitations</a>
+        <a class="btn btn-ghost" href="#how">See How It Works</a>
+      </div>
+      <div class="hero-proof">
+        <div class="proof-item"><span class="proof-dot"></span>One beautiful link</div>
+        <div class="proof-item"><span class="proof-dot"></span>No app for guests</div>
+        <div class="proof-item"><span class="proof-dot"></span>Customised for you</div>
+        <div class="proof-item"><span class="proof-dot"></span>Delivered in 3–5 working days</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section light">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Why Digital?</div>
+      <h2>Luxury doesn't have to mean complicated.</h2>
+      <p>One link can carry your invitation, your story, your events and the details your guests need — without the cost and limitations of traditional printing.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card reveal"><div class="why-number">01</div><h3>Easy to share</h3><p>Send your invitation directly through WhatsApp, email or any messaging app.</p></div>
+      <div class="why-card reveal"><div class="why-number">02</div><h3>Beautiful to revisit</h3><p>Guests can return to the same link for timings, maps, RSVP and memories.</p></div>
+      <div class="why-card reveal"><div class="why-number">03</div><h3>Made for your story</h3><p>Choose a design, share your details and we customise the experience for you.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section collection" id="templates">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">The Collection</div>
+      <h2>Choose your kind of invitation.</h2>
+      <p>From a shareable animated invite to a complete interactive celebration website.</p>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-filter="all">All</button>
+      <button class="tab" data-filter="static">Digital Invites</button>
+      <button class="tab" data-filter="animated">Animated</button>
+      <button class="tab" data-filter="interactive">Interactive Websites</button>
+    </div>
+
+    <div class="template-grid" id="templateGrid"></div>
+  </div>
+</section>
+
+<section class="section soft" id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">What's Possible</div>
+      <h2>Everything your guests need, beautifully brought together.</h2>
+      <p>Features can be included according to the invitation or website package you choose.</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature reveal"><div class="feature-icon">✓</div><h3>RSVP Tracking</h3><p>Collect responses through a simple Google Form and track them in your Google Sheet.</p></div>
+      <div class="feature reveal"><div class="feature-icon">▣</div><h3>Photo Gallery</h3><p>Showcase your favourite photographs in an elegant gallery or lightbox.</p></div>
+      <div class="feature reveal"><div class="feature-icon">◷</div><h3>Live Countdown</h3><p>A real-time countdown that makes the big day feel closer every time the link opens.</p></div>
+      <div class="feature reveal"><div class="feature-icon">♫</div><h3>Background Music</h3><p>Add a meaningful track to create a more immersive invitation experience.</p></div>
+      <div class="feature reveal"><div class="feature-icon">⌖</div><h3>Interactive Maps</h3><p>Connect every venue to Google Maps for one-tap directions.</p></div>
+      <div class="feature reveal"><div class="feature-icon">▶</div><h3>Video & Livestream</h3><p>Embed animated invitations, pre-wedding films or livestream links using YouTube.</p></div>
+      <div class="feature reveal"><div class="feature-icon">∞</div><h3>Event Details</h3><p>Dates, timings, dress codes, venue information and special notes in one place.</p></div>
+      <div class="feature reveal"><div class="feature-icon">♡</div><h3>Personalised Story</h3><p>Tell your story with names, photographs, messages and meaningful moments.</p></div>
+      <div class="feature wide reveal"><div class="feature-icon">5</div><h3>Guest-Group Links — up to 5 included</h3><p>Different guests can see different events while keeping the same beautiful design. Up to five visibility versions can be included at no extra cost; a completely different design is treated as a separate custom project.</p></div>
+    </div>
+
+    <div class="feature-note">Built to feel <strong>premium for the guest</strong> while remaining simple and practical for the host.</div>
+  </div>
+</section>
+
+<section class="section dark" id="how">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">How It Works</div>
+      <h2>Three steps. You don't need to know anything technical.</h2>
+      <p>Select your design, send your details and let us create the experience.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal"><div class="step-number">01</div><h3>Select</h3><p>Choose your favourite design and preview it before you decide.</p><span class="step-tag">Browse • Preview • Choose</span></div>
+      <div class="step reveal"><div class="step-number">02</div><h3>Send on WhatsApp</h3><p>Send your names, dates, photos, events and preferences. We guide you through what is needed.</p><span class="step-tag">Simple • Personal • Guided</span></div>
+      <div class="step reveal"><div class="step-number">03</div><h3>We customise & deliver</h3><p>Your finished invitation or website is customised, checked and delivered within 3–5 working days.</p><span class="step-tag">Customised • Tested • Delivered</span></div>
+    </div>
+
+    <div class="actions" style="justify-content:center;margin-top:45px">
+      <a class="btn btn-gold" href="https://wa.me/910000000000?text=Hi%20Shagna%20Invites%2C%20I%20want%20to%20select%20an%20invite." target="_blank">Start on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<section class="section light" id="experience">
+  <div class="container experience-grid">
+    <div class="phone-stage reveal">
+      <div class="phone">
+        <div class="phone-top">
+          <small>THE WEDDING OF</small>
+          <strong>Divyansh<br>& Ankita</strong>
+        </div>
+        <div class="phone-body">
+          <div class="phone-line"></div><div class="phone-line short"></div>
+          <div class="phone-box"></div>
+          <div class="phone-line" style="margin-top:18px"></div><div class="phone-line short"></div>
+          <div class="phone-buttons"><div class="phone-btn"></div><div class="phone-btn"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="experience-copy reveal">
+      <div class="eyebrow">Live Experience</div>
+      <h2>A little digital home for your celebration.</h2>
+      <p style="margin-top:20px;color:var(--muted);font-size:.82rem">Instead of sending guests several separate messages, give them one elegant link that brings everything together.</p>
+
+      <div class="exp-list">
+        <div class="exp-item"><div class="check">✓</div><div><h4>Save the Date + Countdown</h4><p>Make the first screen useful and memorable.</p></div></div>
+        <div class="exp-item"><div class="check">✓</div><div><h4>Events + Venue Maps</h4><p>Every ceremony, timing and location in one place.</p></div></div>
+        <div class="exp-item"><div class="check">✓</div><div><h4>Story + Gallery + Video</h4><p>Give guests something to explore, not just information to read.</p></div></div>
+        <div class="exp-item"><div class="check">✓</div><div><h4>RSVP + Guest Groups</h4><p>Make responses and event visibility easier to manage.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section integrations" id="connect">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Easy to Connect</div>
+      <h2>Your invitation works with the tools you already know.</h2>
+      <p>No complicated backend is required for the core experience. Connect WhatsApp, Google, YouTube, Maps and Razorpay where needed.</p>
+    </div>
+
+    <div class="integration-grid">
+      <div class="integration reveal"><h3>WhatsApp</h3><p>Fastest way to enquire, send details and get support.</p><a class="btn btn-gold" href="https://wa.me/910000000000?text=Hi%20Shagna%20Invites%2C%20I%20would%20like%20to%20create%20an%20invite." target="_blank">Message Shagna</a></div>
+      <div class="integration reveal"><h3>Google Form</h3><p>Use it for client information collection or guest RSVP.</p><div class="embed-box">PASTE GOOGLE FORM EMBED CODE / URL HERE</div></div>
+      <div class="integration reveal"><h3>Google Maps</h3><p>Embed venue maps and give guests one-tap navigation.</p><div class="embed-box">PASTE GOOGLE MAPS EMBED HERE</div></div>
+      <div class="integration reveal"><h3>YouTube</h3><p>Host animated invites or videos as unlisted YouTube videos.</p><div class="embed-box">PASTE YOUTUBE EMBED HERE</div></div>
+      <div class="integration reveal"><h3>Razorpay</h3><p>Connect each Buy button to the appropriate payment link.</p><a class="btn btn-gold" href="#" onclick="alert('Replace this button with your Razorpay Payment Link.');return false;">Buy Your Invite</a></div>
+      <div class="integration reveal"><h3>Email Support</h3><p>Keep a direct support channel for clients who prefer email.</p><a class="btn email" href="mailto:hello@shagnainvites.com">Email Shagna</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="section custom">
+  <div class="container">
+    <div class="custom-card reveal">
+      <div class="eyebrow">Have Something Else In Mind?</div>
+      <h2>We can create something completely custom.</h2>
+      <p>If you have a particular story, theme or experience in mind, tell us what you're imagining. We'll help shape it into a digital invitation.</p>
+      <div class="actions" style="justify-content:center"><a class="btn btn-gold" href="https://wa.me/910000000000?text=Hi%20Shagna%20Invites%2C%20I%20have%20a%20custom%20invite%20idea." target="_blank">Discuss on WhatsApp</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="section faq" id="faq">
+  <div class="container">
+    <div class="section-head reveal"><div class="eyebrow">Questions</div><h2>Good to know.</h2><p>Short answers before you choose.</p></div>
+    <div class="faq-list">
+      <div class="faq-item reveal"><button class="faq-q">How long does it take?<span class="plus">+</span></button><div class="faq-a"><p>Our standard delivery promise is 3–5 working days after all required details and content have been received.</p></div></div>
+      <div class="faq-item reveal"><button class="faq-q">How do I order?<span class="plus">+</span></button><div class="faq-a"><p>Select a design, contact us on WhatsApp, share your details and we customise the invitation for you.</p></div></div>
+      <div class="faq-item reveal"><button class="faq-q">Do my guests need an app?<span class="plus">+</span></button><div class="faq-a"><p>No. The invitation is designed to open through a browser and can be shared directly through WhatsApp.</p></div></div>
+      <div class="faq-item reveal"><button class="faq-q">Can different guests see different events?<span class="plus">+</span></button><div class="faq-a"><p>Yes. Up to five guest-group visibility versions can be included with the same design. A completely different design is a separate custom project.</p></div></div>
+      <div class="faq-item reveal"><button class="faq-q">How do I pay?<span class="plus">+</span></button><div class="faq-a"><p>Each product can have its own Razorpay payment link connected to the Buy button.</p></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><img src="data:image/jpeg;base64,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" alt="Shagna Invites"><p>Digital Invites for Every Occasion — beautifully designed, easy to share and made personal.</p></div>
+      
+      <div class="footer-social">
+        <span>Follow Shagna</span>
+        <a href="https://www.instagram.com/shagnainvites/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://wa.me/910000000000?text=Hi%20Shagna%20Invites%2C%20I%20want%20to%20create%20an%20invite." target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+
+      <div class="footer-links">
+        <a href="#templates">Invitations</a><a href="#features">Features</a><a href="#how">How It Works</a><a href="#connect">Connect</a><a href="#faq">FAQs</a><a href="mailto:hello@shagnainvites.com">Email</a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Shagna Invites. All designs made to order.</div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/910000000000?text=Hi%20Shagna%20Invites%2C%20I%20want%20to%20create%20an%20invite." target="_blank" aria-label="Chat with Shagna Invites on WhatsApp">◔</a>
+
+<script>
+const templates = [
+  {name:"Royal Peacock", category:"static", tag:"Digital Invite", desc:"Elegant invitation with peacock teal, antique gold and ivory details.", price:"₹499", demo:"#", buy:"#", art:"art-teal"},
+  {name:"Champagne Garden", category:"static", tag:"Digital Invite", desc:"Soft floral elegance for intimate celebrations and modern couples.", price:"₹599", demo:"#", buy:"#", art:"art-blush"},
+  {name:"The Grand Story", category:"animated", tag:"Animated Invite", desc:"A cinematic animated invitation designed for WhatsApp sharing.", price:"₹1,499", demo:"#", buy:"#", art:"art-gold"},
+  {name:"Golden Moments", category:"animated", tag:"Animated Invite", desc:"Motion, music and elegant typography woven into one invitation story.", price:"₹1,799", demo:"#", buy:"#", art:"art-teal"},
+  {name:"One Beautiful Link", category:"interactive", tag:"Interactive Website", desc:"Wedding website with countdown, events, maps, gallery, RSVP and video.", price:"₹4,999", demo:"#", buy:"#", art:"art-gold"},
+  {name:"Our Celebration", category:"interactive", tag:"Interactive Website", desc:"A complete digital celebration home with guest-group visibility and story sections.", price:"₹5,999", demo:"#", buy:"#", art:"art-blush"}
+];
+
+const grid = document.getElementById("templateGrid");
+
+function renderTemplates(filter="all"){
+  grid.innerHTML = "";
+  templates.filter(t => filter==="all" || t.category===filter).forEach(t => {
+    const card = document.createElement("article");
+    card.className = "template reveal visible";
+    card.innerHTML = `
+      <div class="template-art ${t.art}">
+        <div class="art-copy ${t.art==="art-blush" ? "darkcopy" : ""}">
+          <small>${t.tag}</small>
+          <h3>${t.name}</h3>
+          <span>Shagna Invites</span>
+        </div>
+      </div>
+      <div class="template-body">
+        <h3>${t.name}</h3>
+        <p>${t.desc}</p>
+        <div class="template-meta"><div class="price">${t.price} <small>onwards</small></div><div style="color:var(--gold)">✦</div></div>
+        <div class="template-actions">
+          <a class="mini" href="${t.demo}">Preview</a>
+          <a class="mini primary" href="${t.buy}" onclick="if(this.getAttribute('href')==='#'){event.preventDefault();alert('Replace this with the Razorpay payment link for this product.')}">Buy / Customize</a>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById("tabs").addEventListener("click",e=>{
+  if(!e.target.classList.contains("tab")) return;
+  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+  e.target.classList.add("active");
+  renderTemplates(e.target.dataset.filter);
+});
+renderTemplates();
+
+const header = document.getElementById("header");
+window.addEventListener("scroll",()=>header.classList.toggle("scrolled",window.scrollY>35));
+
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+document.querySelectorAll(".faq-q").forEach(btn=>{
+  btn.addEventListener("click",()=>btn.parentElement.classList.toggle("open"));
+});
+
+document.getElementById("menu").addEventListener("click",()=>{
+  const nav = document.getElementById("navlinks");
+  nav.style.display = nav.style.display==="flex" ? "" : "flex";
+  nav.style.position = "absolute";
+  nav.style.top = "78px";
+  nav.style.left = "14px";
+  nav.style.right = "14px";
+  nav.style.padding = "18px";
+  nav.style.background = "rgba(14,41,47,.98)";
+  nav.style.border = "1px solid rgba(216,182,106,.3)";
+  nav.style.borderRadius = "16px";
+  nav.style.flexDirection = "column";
+});
+</script>
+</body>
+</html>
